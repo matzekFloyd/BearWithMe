@@ -1,3 +1,3 @@
-export function Main() {
-  return <main id={"app-main"}>Content</main>;
+export function Main({ children }) {
+  return <main id={"app-main"}>{children}</main>;
 }
