@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "./App";
 
 test("renders header", () => {
@@ -13,8 +13,8 @@ test("renders main", () => {
   expect(main).toBeInTheDocument();
 });
 
-test("renders header", () => {
+test("renders footer", () => {
   render(<App />);
-  let footer = document.getElementById('app-footer');
+  let footer = document.getElementById("app-footer");
   expect(footer).toBeInTheDocument();
 });

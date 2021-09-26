@@ -1,11 +1,14 @@
 import "../sass/main.scss";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { Main } from "./components/Main";
 
 function App() {
   return (
     <>
-      <header id={"app-header"}>Header</header>
-      <main id={"app-main"}>Content</main>
-      <footer id={"app-footer"}>Footer</footer>
+      <Header/>
+      <Main/>
+      <Footer/>
     </>
   );
 }
