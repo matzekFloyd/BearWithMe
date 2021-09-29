@@ -4,16 +4,15 @@ import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { useEffect, useState } from "react";
 import { Api } from "./api/Api";
-import { Bear } from "./models/Bear";
 
 function App() {
   const [bear, setBear] = useState(null);
 
   useEffect(() => {
     async function getBear() {
-      return await Api.getRandomBear();
+      return await Api.getBear();
     }
-    getBear().then((bear) => setBear(new Bear(bear)));
+    getBear().then((bear) => setBear(bear));
   }, [setBear]);
 
   return (
