@@ -34,9 +34,8 @@ export class Api {
   static async getBear() {
     let bears = await Api.getBearCollection();
     let numCurDay = getCurrentDayNumber(new Date());
-    let evenDay = 273 % 2 === 0;
+    let evenDay = numCurDay % 2 === 0;
     let idx = evenDay ? numCurDay : bears.length - numCurDay;
-    console.log("IDX ", idx, evenDay, numCurDay, bears.length);
     return bears[idx];
   }
 }
