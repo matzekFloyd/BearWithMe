@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     async function getBear() {
-      return await Api.getRandomBear();
+      return await Api.getBear();
     }
     getBear().then((bear) => setBear(new Bear(bear)));
   }, [setBear]);
