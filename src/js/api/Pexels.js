@@ -5,10 +5,10 @@ import { getIndex } from "../util";
 import { NUMBER_OF_DAYS } from "../constants";
 
 /**
- * @this Api
+ * @this Pexels
  */
-export class Api {
-  static getPexelsClient() {
+export class Pexels {
+  static getClient() {
     if (!window.pexelsClient) {
       window.pexelsClient = createClient(process.env.REACT_APP_PEXELS_API_KEY);
     }
@@ -17,7 +17,7 @@ export class Api {
 
   static async getBearCollection() {
     let collectionId = process.env.REACT_APP_PEXELS_BEAR_COLLECTION_ID;
-    let pexelsClient = Api.getPexelsClient();
+    let pexelsClient = Pexels.getClient();
     let bears = [];
     try {
       for (let i = 0; i <= 5; i++) {
@@ -42,7 +42,7 @@ export class Api {
   }
 
   static async getBearById() {
-    let pexelsClient = Api.getPexelsClient();
+    let pexelsClient = Pexels.getClient();
     let id = BearKeys[getIndex()];
     let bear = null;
     try {
@@ -58,9 +58,9 @@ export class Api {
   }
 
   static async getBear() {
-    let bear = await Api.getBearById();
+    let bear = await Pexels.getBearById();
     if (bear === null) {
-      let bears = await Api.getBearCollection();
+      let bears = await Pexels.getBearCollection();
       bear = bears[getIndex()];
     }
     return new Bear(bear);

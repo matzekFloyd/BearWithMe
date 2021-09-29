@@ -3,7 +3,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { useEffect, useState } from "react";
-import { Api } from "./api/Api";
+import { Pexels } from "./api/Pexels";
 import Names from "../json/names.json";
 import { getIndex } from "./util";
 
@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     async function getBear() {
-      return await Api.getBear();
+      return await Pexels.getBear();
     }
     getBear().then((bear) => setBear(bear));
   }, [setBear]);
