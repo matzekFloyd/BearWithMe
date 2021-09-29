@@ -1,9 +1,8 @@
 import { createClient } from "pexels";
-import { getCurrentDayNumber } from "../util";
-import BearKeys from "./bears.json";
+import BearKeys from "../../json/bears.json";
 import { Bear } from "../models/Bear";
-
-const NUMBER_OF_DAYS = 366;
+import { getIndex } from "../util";
+import { NUMBER_OF_DAYS } from "../constants";
 
 /**
  * @this Api
@@ -14,13 +13,6 @@ export class Api {
       window.pexelsClient = createClient(process.env.REACT_APP_PEXELS_API_KEY);
     }
     return window.pexelsClient;
-  }
-
-  static getIndex() {
-    let numCurDay = getCurrentDayNumber(new Date());
-    let evenDay = numCurDay % 2 === 0;
-    let idx = evenDay ? numCurDay : NUMBER_OF_DAYS - numCurDay;
-    return idx;
   }
 
   static async getBearCollection() {
@@ -51,7 +43,7 @@ export class Api {
 
   static async getBearById() {
     let pexelsClient = Api.getPexelsClient();
-    let id = BearKeys[Api.getIndex()];
+    let id = BearKeys[getIndex()];
     let bear = null;
     try {
       bear = await pexelsClient.photos.show({ id: id });
@@ -69,7 +61,7 @@ export class Api {
     let bear = await Api.getBearById();
     if (bear === null) {
       let bears = await Api.getBearCollection();
-      bear = bears[Api.getIndex()];
+      bear = bears[getIndex()];
     }
     return new Bear(bear);
   }
