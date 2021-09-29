@@ -1,15 +1,18 @@
 import PropTypes from "prop-types";
 import { Bear } from "../models/Bear";
 
-export function Main({ name, bear }) {
+export function Main({ bear }) {
   return (
     <main id={"app-main"}>
-      <h1>{name}</h1>
-      {bear && <img src={bear.src.large} alt={"A bear"} />}
+      {bear && (
+        <>
+          <h1>{bear.name}</h1>
+          <img src={bear.src.large} alt={"A bear"} />
+        </>
+      )}
     </main>
   );
 }
 Main.propTypes = {
-  name: PropTypes.string,
   bear: PropTypes.instanceOf(Bear),
 };

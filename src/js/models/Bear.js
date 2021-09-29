@@ -1,5 +1,6 @@
 export class Bear {
   constructor(obj) {
+    this.name = null;
     this.avg_color = obj.avg_color;
     this.height = obj.height;
     this.id = obj.id;
@@ -11,6 +12,10 @@ export class Bear {
     this.type = obj.type;
     this.url = obj.url;
     this.width = obj.width;
+  }
+
+  setName(name) {
+    this.name = name;
   }
 }
 
