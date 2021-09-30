@@ -23,7 +23,7 @@ function BearImage({ bearCfg }) {
   let renderFallbackBear = bearCfg === null;
   return (
     <img
-      src={renderFallbackBear ? bearCfg.src.large : BearFallback}
+      src={renderFallbackBear ? BearFallback : bearCfg.src.large}
       alt={"A bear"}
     />
   );
