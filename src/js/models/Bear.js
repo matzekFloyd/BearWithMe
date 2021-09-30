@@ -1,3 +1,6 @@
+/**
+ * @this Bear
+ */
 export class Bear {
   constructor(obj) {
     this.name = null;
@@ -17,8 +20,15 @@ export class Bear {
   setName(name) {
     this.name = name;
   }
+
+  getSrcByDimensions() {
+    return this.width > this.height ? this.src.landscape : this.src.portrait;
+  }
 }
 
+/**
+ * @this BearSrc
+ */
 class BearSrc {
   constructor(obj) {
     this.landscape = obj.landscape;

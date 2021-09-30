@@ -10,6 +10,9 @@ import Names from "../json/names.json";
 import BearFallback from "../json/bearFallback.json";
 import { FALLBACK_BEAR_NAME } from "./constants";
 
+/**
+ * @this App
+ */
 function App() {
   const [bear, setBear] = useState(null);
 
