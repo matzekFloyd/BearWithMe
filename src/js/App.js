@@ -8,6 +8,7 @@ import { Bear } from "./models/Bear";
 import { getIndex } from "./util";
 import Names from "../json/names.json";
 import BearFallback from "../json/bearFallback.json";
+import { FALLBACK_BEAR_NAME } from "./constants";
 
 function App() {
   const [bear, setBear] = useState(null);
@@ -22,7 +23,7 @@ function App() {
       }
       if (!bear) {
         bear = new Bear(BearFallback);
-        bear.setName("Matzek");
+        bear.setName(FALLBACK_BEAR_NAME);
       } else {
         bear = new Bear(bear);
         bear.setName(Names[idx]);
