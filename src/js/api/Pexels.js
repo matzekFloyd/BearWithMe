@@ -1,6 +1,5 @@
 import { createClient } from "pexels";
 import BearKeys from "../../json/bears.json";
-import Names from "../../json/names.json";
 import { Bear } from "../models/Bear";
 import { getIndex } from "../util";
 import { NUMBER_OF_DAYS } from "../constants";
@@ -55,22 +54,6 @@ export class Pexels {
         error
       );
     }
-    return bear;
-  }
-
-  /**
-   * @todo should move this out of Pexels.js, and have a fallback bear image that does not depend on pexels
-   * @returns 
-   */
-  static async getBear() {
-    let idx = getIndex();
-    let bear = await Pexels.getBearById();
-    if (bear === null) {
-      let bears = await Pexels.getBearCollection();
-      bear = bears[idx];
-    }
-    bear = new Bear(bear);
-    bear.setName(Names[idx]);
     return bear;
   }
 }
