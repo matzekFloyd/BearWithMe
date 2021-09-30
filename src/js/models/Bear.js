@@ -8,7 +8,7 @@ export class Bear {
     this.photographer = obj.photographer;
     this.photographer_id = obj.photographer_id;
     this.photographer_url = obj.photographer_url;
-    this.src = new BearSrc(obj.src);
+    this.src = obj.src && new BearSrc(obj.src);
     this.type = obj.type;
     this.url = obj.url;
     this.width = obj.width;
