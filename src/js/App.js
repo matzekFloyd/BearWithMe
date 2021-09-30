@@ -7,6 +7,7 @@ import { Pexels } from "./api/Pexels";
 import { Bear } from "./models/Bear";
 import { getIndex } from "./util";
 import Names from "../json/names.json";
+import BearFallback from "../json/bearFallback.json";
 
 function App() {
   const [bear, setBear] = useState(null);
@@ -15,12 +16,17 @@ function App() {
     async function getBear() {
       let idx = getIndex();
       let bear = await Pexels.getBearById();
-      if (bear === null) {
+      if (!bear) {
         let bears = await Pexels.getBearCollection();
         bear = bears[idx];
       }
-      bear = new Bear(bear);
-      bear.setName(Names[idx]);
+      if (!bear) {
+        bear = new Bear(BearFallback);
+        bear.setName("Matzek");
+      } else {
+        bear = new Bear(bear);
+        bear.setName(Names[idx]);
+      }
       return bear;
     }
     getBear().then((bear) => setBear(bear));
