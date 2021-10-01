@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
-import React from "react";
 import { Bear } from "../models/Bear";
-import BearFallback from "../../images/bfb_large.jpg";
+import { BearImage } from "./bear/BearImage";
 
 /**
  * @this Main
@@ -20,20 +19,4 @@ export function Main({ bear }) {
 }
 Main.propTypes = {
   bear: PropTypes.instanceOf(Bear),
-};
-
-/**
- * @this BearImage
- */
-function BearImage({ bearObj }) {
-  let renderFallbackBear = bearObj === null;
-  return (
-    <img
-      src={renderFallbackBear ? BearFallback : bearObj.getSrcByDimensions()}
-      alt={"A bear"}
-    />
-  );
-}
-BearImage.propTypes = {
-  bearObj: PropTypes.instanceOf(Bear).isRequired,
 };
