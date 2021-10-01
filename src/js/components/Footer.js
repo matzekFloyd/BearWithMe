@@ -2,5 +2,5 @@
  * @this Footer
  */
 export function Footer() {
-  return <footer id={"app-footer"}>Footer</footer>;
+  return <footer id={"app-footer"}/>;
 }

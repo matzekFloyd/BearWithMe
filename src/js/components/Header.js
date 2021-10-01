@@ -2,5 +2,5 @@
  * @this Header
  */
 export function Header() {
-  return <header id={"app-header"}>Header</header>;
+  return <header id={"app-header"}/>;
 }
