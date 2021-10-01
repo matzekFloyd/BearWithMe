@@ -41,9 +41,9 @@ export class Pexels {
     return bears;
   }
 
-  static async getBearById() {
+  static async getBearById(index = getIndex()) {
     let pexelsClient = Pexels.getClient();
-    let id = BearKeys[getIndex()];
+    let id = BearKeys[index];
     let bear = null;
     try {
       bear = await pexelsClient.photos.show({ id: id });
