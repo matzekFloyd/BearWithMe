@@ -13,3 +13,7 @@ export function getIndex() {
   let idx = evenDay ? numCurDay : NUMBER_OF_DAYS - numCurDay;
   return idx;
 }
+
+export function environmentIsDev() {
+  return process.env.NODE_ENV === "development";
+}
