@@ -11,5 +11,5 @@ export function BearQuote({ quoteObj }) {
   );
 }
 BearQuote.propTypes = {
-  quoteObj: PropTypes.object,
+  quoteObj: PropTypes.object.isRequired,
 };
