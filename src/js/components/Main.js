@@ -12,9 +12,6 @@ export function Main({ bear }) {
         <>
           <h1>{bear.name}</h1>
           <BearImage bearObj={bear} />
-          <p>
-          Lumber companies felt they had no choice but to kill the black bears in Washington State that were eating the bark from trees. However, once someone thought to put piles of food in the forest, the bears stopped eating the trees, and were happy to eat the free food. Because feeding the bears cost less than killing them, the lumber companies were happy, too.
-          </p>
         </>
       )}
     </main>
