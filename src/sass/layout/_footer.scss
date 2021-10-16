@@ -1,6 +1,23 @@
 #app-footer {
-    font-size: 10px;
+  .app-footer__copy-right {
     position: fixed;
-    right: 12px;
+    right: 10px;
     bottom: 15px;
+    font-size: 10px;
+  }
+
+  div {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 75px;
+    height: 75px;
+    background-color: rgba(
+      238,
+      111,
+      87,
+      0.85
+    ); //TODO find better colour for this, move it to variables.scss
+    //TODO should be a triangle, not a square
+  }
 }
