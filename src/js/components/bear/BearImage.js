@@ -8,7 +8,8 @@ import { Bear } from "../../models/Bear";
 export function BearImage({ bearObj }) {
   let renderFallbackBear = bearObj === null;
   return (
-    <img onMouseOver={() => console.log("MOSUE OVER")}
+    <img
+      onMouseOver={() => console.log("Mouse over")}
       src={renderFallbackBear ? BearFallback : bearObj.getSrcByDimensions()}
       alt={"A bear"}
     />
