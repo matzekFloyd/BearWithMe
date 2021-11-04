@@ -1,8 +1,22 @@
 #app-header {
   .app-header__disclaimer {
     position: fixed;
-    left: 10px;
-    top: 15px;
+    padding: 10px;
+    left: -485px;
+    top: -20px;
+    background-color: rgba(238, 111, 87, 1);
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+
+    img {
+      vertical-align: bottom;
+    }
+  }
+
+  .app-header__disclaimer:hover {
+    left: 0px;
   }
 
   div {
