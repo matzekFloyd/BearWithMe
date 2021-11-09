@@ -1,22 +1,21 @@
 #app-header {
   .app-header__disclaimer {
     position: fixed;
-    left: 10px;
-    top: 15px;
+    padding: 10px;
+    left: -485px;
+    top: -20px;
+    background-color: rgba(238, 111, 87, 1);
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+
+    img {
+      vertical-align: bottom;
+    }
   }
 
-  div {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 75px;
-    height: 75px;
-    background-color: rgba(
-      238,
-      111,
-      87,
-      0.85
-    ); //TODO find better colour for this, move it to variables.scss
-    //TODO should be a triangle, not a square
+  .app-header__disclaimer:hover {
+    left: 0px;
   }
 }

@@ -3,7 +3,14 @@ $dot-color: rgb(3, 1, 8);
 $dot-size: 1px;
 $dot-space: 22px;
 
+#root {
+  display: flex;
+  align-items: center;
+  height: 95vh;
+}
+
 body {
+  margin: 0;
   background: linear-gradient(
         90deg,
         $bg-color ($dot-space - $dot-size),
