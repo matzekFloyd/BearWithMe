@@ -14,6 +14,11 @@ export function getIndex() {
   return idx;
 }
 
+export function itsChristmas(date = null) {
+  let curDate = date ? date : new Date();
+  return parseInt(curDate.getUTCDate()) === 24 && parseInt(curDate.getUTCMonth()) === 11;
+}
+
 export function environmentIsDev() {
   return process.env.NODE_ENV === "development";
 }
