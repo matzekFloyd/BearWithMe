@@ -21,8 +21,16 @@ export class Bear {
     this.name = name;
   }
 
+  setType(type) {
+    this.type = type;
+  }
+
   getSrcByDimensions() {
     return this.width > this.height ? this.src.landscape : this.src.portrait;
+  }
+
+  isPaddington() {
+    return this.name === "Paddington" && this.type === "christmas";
   }
 }
 
