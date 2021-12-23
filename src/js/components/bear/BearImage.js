@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 import BearFallback from "../../../images/bfb_large.jpg";
 import BearPaddington from "../../../images/paddington_greeting_xmas.jpg";
 import { Bear } from "../../models/Bear";
@@ -6,7 +7,9 @@ import { Bear } from "../../models/Bear";
 /**
  * @this BearImage
  */
-export function BearImage({ bearObj }) {
+export function BearImage({ bearObj, setBearImgLoading }) {
+  let [loading, setLoading] = useState(true);
+
   let bearSrc = null;
 
   if (bearObj === null) {
@@ -17,8 +20,13 @@ export function BearImage({ bearObj }) {
     bearSrc = bearObj.getSrcByDimensions();
   }
 
-  return <img src={bearSrc} alt={"A bear"} />;
+  useEffect(() => {
+    setBearImgLoading(loading);
+  }, [loading]);
+
+  return <img src={bearSrc} alt={"A bear"} onLoad={() => setLoading(false)} />;
 }
 BearImage.propTypes = {
   bearObj: PropTypes.instanceOf(Bear).isRequired,
+  setBearImgLoading: PropTypes.func.isRequired,
 };
