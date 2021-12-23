@@ -22,7 +22,7 @@ export function BearImage({ bearObj, setBearImgLoading }) {
 
   useEffect(() => {
     setBearImgLoading(loading);
-  }, [loading]);
+  }, [loading, setBearImgLoading]);
 
   return <img src={bearSrc} alt={"A bear"} onLoad={() => setLoading(false)} />;
 }
