@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import BearFallback from "../../../images/bfb_large.jpg";
-import BearPaddington from "../../../images/paddington_xmas.jpg";
+import BearPaddington from "../../../images/paddington_greeting_xmas.jpg";
 import { Bear } from "../../models/Bear";
 
 /**
