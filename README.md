@@ -56,6 +56,19 @@ Configure these in your Vercel project environment variables:
 
 These are read on the server and are never bundled into frontend assets.
 
+### Build compatibility note
+
+This project currently uses `react-scripts@4`, which can require OpenSSL legacy mode on modern Node versions.
+The `build` script already sets this flag via `cross-env`:
+
+```bash
+npm run build
+```
+
+For Vercel, set this environment variable to make deployments reproducible:
+
+- `NODE_OPTIONS=--openssl-legacy-provider`
+
 ### Local API development
 
 To run frontend and serverless routes together locally, use:
