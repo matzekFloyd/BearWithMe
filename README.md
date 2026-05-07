@@ -1,7 +1,7 @@
 # BearWithMe
 
 BearWithMe is a small React app that shows a "bear of the day" with a sweet message.
-It uses the Pexels API for bear images and includes local fallback content when remote fetches fail.
+It uses a serverless proxy to fetch Pexels bear images and includes local fallback content when remote fetches fail.
 
 ## Tech Stack
 
@@ -23,8 +23,7 @@ Copy `.env.example` to `.env` and set your own values.
 
 Required variables:
 
-- `REACT_APP_PEXELS_API_KEY`
-- `REACT_APP_PEXELS_BEAR_COLLECTION_ID`
+- `REACT_APP_API_BASE_URL` (optional, only if API is on another origin)
 
 Do not commit `.env` files or secret values.
 
@@ -43,9 +42,46 @@ The app runs at `http://localhost:3000`.
 - `npm run build` - create a production build
 - `npm run analyze` - inspect bundle size
 
-## Notes on API Keys
+## Serverless API (`/api/random-bear`)
 
-`REACT_APP_*` variables are bundled into client-side code in Create React App.
-Treat these keys as low-privilege and scoped/rate-limited.
+This repository includes a Vercel Serverless Function at `api/random-bear.js`.
+On Vercel, it is automatically available at `/api/random-bear`.
 
-For stronger protection, move Pexels calls behind a serverless endpoint and keep the provider key server-side only.
+### Server-side environment variables
+
+Configure these in your Vercel project environment variables:
+
+- `PEXELS_API_KEY`
+- `PEXELS_BEAR_COLLECTION_ID`
+
+These are read on the server and are never bundled into frontend assets.
+
+### Build compatibility note
+
+This project currently uses `react-scripts@4`, which can require OpenSSL legacy mode on modern Node versions.
+The `build` script already sets this flag via `cross-env`:
+
+```bash
+npm run build
+```
+
+For Vercel, set this environment variable to make deployments reproducible:
+
+- `NODE_OPTIONS=--openssl-legacy-provider`
+
+### Local API development
+
+To run frontend and serverless routes together locally, use:
+
+```bash
+vercel dev
+```
+
+If you run only `npm start`, set `REACT_APP_API_BASE_URL` to your API host.
+
+### Protection and behavior
+
+- In-memory per-IP rate limiting (best effort)
+- Short response cache (`max-age=60`)
+- Minimal payload returned to the browser
+- Graceful frontend fallback when API request fails
