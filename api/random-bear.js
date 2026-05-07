@@ -65,10 +65,14 @@ module.exports = async function handler(req, res) {
     return res.status(200).json(cachedResponse);
   }
 
-  const apiKey = process.env.PEXELS_API_KEY;
-  const collectionId = process.env.PEXELS_BEAR_COLLECTION_ID;
+  const apiKey = process.env.PEXELS_API_KEY || process.env.REACT_APP_PEXELS_API_KEY;
+  const collectionId =
+    process.env.PEXELS_BEAR_COLLECTION_ID || process.env.REACT_APP_PEXELS_BEAR_COLLECTION_ID;
   if (!apiKey || !collectionId) {
-    return res.status(500).json({ error: "server_not_configured" });
+    return res.status(500).json({
+      error: "server_not_configured",
+      message: "Missing PEXELS_API_KEY/PEXELS_BEAR_COLLECTION_ID environment variables",
+    });
   }
 
   try {
@@ -85,7 +89,9 @@ module.exports = async function handler(req, res) {
     }
 
     const data = await response.json();
-    const media = Array.isArray(data.media) ? data.media : [];
+    const media = Array.isArray(data.media)
+      ? data.media.filter((item) => item && item.type === "Photo" && item.src)
+      : [];
     if (media.length === 0) {
       return res.status(404).json({ error: "no_bears_found" });
     }

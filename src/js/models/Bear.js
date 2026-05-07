@@ -26,6 +26,9 @@ export class Bear {
   }
 
   getSrcByDimensions() {
+    if (!this.src) {
+      return null;
+    }
     return this.width > this.height ? this.src.landscape : this.src.portrait;
   }
 

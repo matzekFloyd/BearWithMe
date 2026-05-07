@@ -17,7 +17,7 @@ export function BearImage({ bearObj, setBearImgLoading }) {
   } else if (bearObj.isPaddington()) {
     bearSrc = BearPaddington;
   } else {
-    bearSrc = bearObj.getSrcByDimensions();
+    bearSrc = bearObj.getSrcByDimensions() || BearFallback;
   }
 
   useEffect(() => {
