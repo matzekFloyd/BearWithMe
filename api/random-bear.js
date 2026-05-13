@@ -1,9 +1,8 @@
-const CACHE_TTL_MS = 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 30;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
-let cachedResponse = null;
-let cacheExpiresAt = 0;
+/** In-process cache: same UTC day => same payload (reduces Pexels calls on warm instances). */
+let cachedByUtcDay = { daySeed: null, payload: null };
 const rateLimitStore = new Map();
 
 function getClientIp(req) {
@@ -26,6 +25,23 @@ function withinRateLimit(ip, now) {
   entry.count += 1;
   rateLimitStore.set(ip, entry);
   return true;
+}
+
+/** Matches `getDailyBearSeedUtc` in `src/js/util.js` (UTC calendar day). */
+function getDailyBearSeedUtcMs(nowMs) {
+  const d = new Date(nowMs);
+  const utcMidnight = Date.UTC(
+    d.getUTCFullYear(),
+    d.getUTCMonth(),
+    d.getUTCDate()
+  );
+  return Math.floor(utcMidnight / (24 * 60 * 60 * 1000));
+}
+
+function secondsUntilUtcDayEnd(nowMs) {
+  const d = new Date(nowMs);
+  const endMs = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1);
+  return Math.max(60, Math.floor((endMs - nowMs) / 1000));
 }
 
 function toMinimalBear(photo) {
@@ -60,9 +76,11 @@ module.exports = async function handler(req, res) {
     return res.status(429).json({ error: "rate_limited" });
   }
 
-  if (cachedResponse && now < cacheExpiresAt) {
-    res.setHeader("Cache-Control", "public, max-age=60");
-    return res.status(200).json(cachedResponse);
+  const daySeed = getDailyBearSeedUtcMs(now);
+  if (cachedByUtcDay.daySeed === daySeed && cachedByUtcDay.payload) {
+    const maxAge = secondsUntilUtcDayEnd(now);
+    res.setHeader("Cache-Control", `public, max-age=${maxAge}, s-maxage=${maxAge}`);
+    return res.status(200).json(cachedByUtcDay.payload);
   }
 
   const apiKey = process.env.PEXELS_API_KEY || process.env.REACT_APP_PEXELS_API_KEY;
@@ -76,7 +94,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const page = Math.floor(Math.random() * 5) + 1;
+    const page = (daySeed % 5) + 1;
     const response = await fetch(
       `https://api.pexels.com/v1/collections/${collectionId}?type=photos&per_page=80&page=${page}`,
       {
@@ -96,13 +114,13 @@ module.exports = async function handler(req, res) {
       return res.status(404).json({ error: "no_bears_found" });
     }
 
-    const randomIndex = Math.floor(Math.random() * media.length);
-    const payload = { bear: toMinimalBear(media[randomIndex]) };
+    const index = daySeed % media.length;
+    const payload = { bear: toMinimalBear(media[index]) };
 
-    cachedResponse = payload;
-    cacheExpiresAt = now + CACHE_TTL_MS;
+    cachedByUtcDay = { daySeed, payload };
 
-    res.setHeader("Cache-Control", "public, max-age=60");
+    const maxAge = secondsUntilUtcDayEnd(now);
+    res.setHeader("Cache-Control", `public, max-age=${maxAge}, s-maxage=${maxAge}`);
     return res.status(200).json(payload);
   } catch (error) {
     return res.status(502).json({ error: "proxy_request_failed" });

@@ -1,6 +1,6 @@
 import { Pexels } from "./api/Pexels";
 import { Bear } from "./models/Bear";
-import { getIndex, itsChristmas } from "./util";
+import { getDailyBearSeedUtc, itsChristmas } from "./util";
 import BearFallback from "../json/bearFallback.json";
 import Names from "../json/names.json";
 import { FALLBACK_BEAR_NAME } from "./constants";
@@ -11,7 +11,7 @@ import { FALLBACK_BEAR_NAME } from "./constants";
 export class BearGenerator {
   static async fetchBear() {
     let bear = null;
-    let idx = getIndex();
+    let seed = getDailyBearSeedUtc(new Date());
 
     if (itsChristmas(new Date())) {
       console.log("Have a beary good christmas!");
@@ -25,7 +25,7 @@ export class BearGenerator {
         bear = new Bear(BearFallback);
         bear.setName(FALLBACK_BEAR_NAME);
       } else {
-        bear.setName(Names[idx % Names.length]);
+        bear.setName(Names[seed % Names.length]);
       }
     }
     return bear;

@@ -1,4 +1,9 @@
-import { getCurrentDayNumber, itsChristmas } from "./util";
+import {
+  getCurrentDayNumber,
+  getDailyBearSeedUtc,
+  getUtcDateKey,
+  itsChristmas,
+} from "./util";
 
 test("expect the first day of january to be day #1", () => {
   let firstOfJanuary = new Date(Date.UTC(2021, 0, 1, 0, 0, 0));
@@ -23,4 +28,18 @@ test("expect date to be christmas", () => {
 test("expect date to not be christmas", () => {
   let dateToCheck = new Date(Date.UTC(1991, 9, 22, 0, 0, 0));
   expect(itsChristmas(dateToCheck)).toEqual(false);
+});
+
+test("UTC date key and daily seed are stable for the same UTC calendar day", () => {
+  let morningUtc = new Date(Date.UTC(2026, 4, 14, 2, 30, 0));
+  let eveningUtc = new Date(Date.UTC(2026, 4, 14, 22, 0, 0));
+  expect(getUtcDateKey(morningUtc)).toEqual("2026-05-14");
+  expect(getUtcDateKey(eveningUtc)).toEqual("2026-05-14");
+  expect(getDailyBearSeedUtc(morningUtc)).toEqual(getDailyBearSeedUtc(eveningUtc));
+});
+
+test("UTC daily seed changes across UTC midnight", () => {
+  let before = new Date(Date.UTC(2026, 4, 14, 23, 59, 0));
+  let after = new Date(Date.UTC(2026, 4, 15, 0, 1, 0));
+  expect(getDailyBearSeedUtc(before)).not.toEqual(getDailyBearSeedUtc(after));
 });
