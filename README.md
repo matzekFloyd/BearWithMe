@@ -1,5 +1,7 @@
 # BearWithMe
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+
 BearWithMe is a small React app that shows a "bear of the day" with a sweet message.
 It uses a serverless proxy to fetch Pexels bear images and includes local fallback content when remote fetches fail.
 
