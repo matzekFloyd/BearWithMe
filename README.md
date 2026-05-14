@@ -1,9 +1,10 @@
-# BearWithMe
+# 🐻 BearWithMe
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 
-BearWithMe is a small React app that shows a "bear of the day" with a sweet message.
-It uses a serverless proxy to fetch Pexels bear images and includes local fallback content when remote fetches fail.
+BearWithMe is a small React app for a bear of the day: each UTC calendar date picks a photo, a name, and a pun from local JSON. Tap the bear to reveal the pun after it loads.
+
+It uses a serverless proxy to fetch bear photos from Pexels and falls back to bundled images when that request fails.
 
 ## Tech Stack
 
