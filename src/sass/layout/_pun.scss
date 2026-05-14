@@ -1,0 +1,31 @@
+// Daily pun card under the bear image (UTC calendar day matches the daily bear; see README).
+
+.app-main__pun {
+  max-width: min(36rem, 92vw);
+  margin: 1.25rem auto 0;
+  padding: 0.85rem 1.15rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  border: 1px solid rgba(3, 1, 8, 0.08);
+  border-left: 3px solid rgba(238, 111, 87, 0.85);
+  box-shadow: 0 2px 12px rgba(3, 1, 8, 0.06);
+  color: rgb(35, 32, 42);
+}
+
+.app-main__pun-label {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(238, 111, 87, 0.95);
+}
+
+.app-main__pun .bear-pun {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}

@@ -82,3 +82,4 @@ If you run only `npm start`, set `VITE_API_BASE_URL` in `.env` to your API origi
 - Response caching headers where configured in `api/random-bear.js`
 - Minimal payload returned to the browser
 - Graceful frontend fallback when the API request fails
+- **Daily bear, name, and pun** are keyed to the same **UTC calendar day** (midnight UTC rolls content forward). If you ever need a specific local timezone instead, change the seed logic in `src/js/util.js` / `src/js/dailyPun.js` together with `api/random-bear.js` so server and client stay aligned.
