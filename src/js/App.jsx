@@ -12,11 +12,18 @@ function App() {
   const [bear, setBear] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
     async function getBear() {
-      return await BearGenerator.fetchBear();
+      let b = await BearGenerator.fetchBear();
+      if (!cancelled) {
+        setBear(b);
+      }
     }
-    getBear().then((bear) => setBear(bear));
-  }, [setBear]);
+    getBear();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <>

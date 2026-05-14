@@ -38,5 +38,5 @@ export function itsChristmas(date = null) {
 }
 
 export function environmentIsDev() {
-  return process.env.NODE_ENV === "development";
+  return import.meta.env.DEV;
 }

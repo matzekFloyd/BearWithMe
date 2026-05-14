@@ -7,9 +7,10 @@ It uses a serverless proxy to fetch Pexels bear images and includes local fallba
 
 ## Tech Stack
 
-- React (Create React App)
+- React 17
+- [Vite](https://vitejs.dev/) (dev server and production build)
 - Sass
-- Pexels JavaScript SDK
+- [Vitest](https://vitest.dev/) for unit tests
 
 ## Local Setup
 
@@ -23,9 +24,9 @@ npm install
 
 Copy `.env.example` to `.env` and set your own values.
 
-Required variables:
+Frontend variables (must be prefixed with `VITE_` so Vite exposes them to the browser):
 
-- `REACT_APP_API_BASE_URL` (optional, only if API is on another origin)
+- `VITE_API_BASE_URL` (optional, only if the API is on another origin in development)
 
 Do not commit `.env` files or secret values.
 
@@ -35,14 +36,16 @@ Do not commit `.env` files or secret values.
 npm start
 ```
 
-The app runs at `http://localhost:3000`.
+The dev server runs at `http://localhost:3000` (see `vite.config.js`).
 
 ## Scripts
 
-- `npm start` - start the development server
-- `npm test` - run tests in watch mode
-- `npm run build` - create a production build
-- `npm run analyze` - inspect bundle size
+- `npm start` / `npm run dev` — start the Vite dev server
+- `npm test` — run tests once (CI mode)
+- `npm run test:watch` — run tests in watch mode
+- `npm run build` — production build to `dist/`
+- `npm run preview` — serve the production build locally
+- `npm run analyze` — inspect bundle size (after `npm run build`)
 
 ## Serverless API (`/api/random-bear`)
 
@@ -58,32 +61,24 @@ Configure these in your Vercel project environment variables:
 
 These are read on the server and are never bundled into frontend assets.
 
-### Build compatibility note
+### Deploying on Vercel
 
-This project currently uses `react-scripts@4`, which can require OpenSSL legacy mode on modern Node versions.
-The `build` script already sets this flag via `cross-env`:
-
-```bash
-npm run build
-```
-
-For Vercel, set this environment variable to make deployments reproducible:
-
-- `NODE_OPTIONS=--openssl-legacy-provider`
+The repo includes `vercel.json` with `"framework": "vite"` so the output directory is `dist/`.
+If you previously deployed a Create React App build, update the project to use the Vite output (`dist`) instead of `build`.
 
 ### Local API development
 
-To run frontend and serverless routes together locally, use:
+To run the frontend and serverless routes together locally, use:
 
 ```bash
 vercel dev
 ```
 
-If you run only `npm start`, set `REACT_APP_API_BASE_URL` to your API host.
+If you run only `npm start`, set `VITE_API_BASE_URL` in `.env` to your API origin (for example where `vercel dev` serves the app).
 
 ### Protection and behavior
 
 - In-memory per-IP rate limiting (best effort)
-- Short response cache (`max-age=60`)
+- Response caching headers where configured in `api/random-bear.js`
 - Minimal payload returned to the browser
-- Graceful frontend fallback when API request fails
+- Graceful frontend fallback when the API request fails
