@@ -1,6 +1,7 @@
 # 🐻 BearWithMe
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+[![Unit tests](https://github.com/matzekFloyd/BearWithMe/actions/workflows/test.yml/badge.svg)](https://github.com/matzekFloyd/BearWithMe/actions/workflows/test.yml)
 
 BearWithMe is a small React app for a bear of the day: each UTC calendar date picks a photo, a name, and a pun from local JSON. Tap the bear to reveal the pun after it loads.
 
