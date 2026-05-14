@@ -1,0 +1,182 @@
+// Daily pun card under the bear image (UTC calendar day matches the daily bear; see README).
+// Hidden until the bear is clicked; then it animates up from under the image.
+// On narrow viewports the bear + pun share a capped width. On wide screens the bear row
+// grows for a larger hero image; the pun stays in a modest max-width for readability.
+// The img uses width: auto so it is never stretched beyond its intrinsic resolution.
+
+.app-main__bear-stack {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.app-main__bear-stack img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(78vh, 1000px);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  @media (min-width: 900px) and (min-height: 700px) {
+    max-height: min(82vh, 1200px);
+  }
+}
+
+.app-main__bear-wrap,
+.app-main__bear-hit {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  max-width: min(36rem, calc(100vw - 1.25rem));
+
+  @media (min-width: 640px) {
+    max-width: min(44rem, calc(100vw - 1.75rem));
+  }
+
+  @media (min-width: 900px) {
+    max-width: min(54rem, calc(100vw - 2.5rem));
+  }
+
+  @media (min-width: 1280px) {
+    max-width: min(60rem, calc(100vw - 3rem));
+  }
+}
+.app-main__bear-hit {
+  cursor: pointer;
+  border-radius: 6px;
+  outline: none;
+
+  img {
+    animation: app-main__bear-jiggle 2.6s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+}
+
+.app-main__bear-hit:focus-visible {
+  outline: 2px solid rgba(238, 111, 87, 0.85);
+  outline-offset: 4px;
+}
+
+@keyframes app-main__bear-jiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  18% {
+    transform: rotate(-0.9deg) translateY(1px);
+  }
+  36% {
+    transform: rotate(0.7deg) translateY(-1px);
+  }
+  54% {
+    transform: rotate(-0.5deg);
+  }
+  72% {
+    transform: rotate(0.4deg);
+  }
+  90% {
+    transform: rotate(-0.25deg);
+  }
+}
+
+// Eases the bear out of the jiggle loop on pun reveal (replaces a hard animation cut).
+@keyframes app-main__bear-settle {
+  0% {
+    transform: rotate(-0.7deg) translateY(0.75px);
+  }
+  50% {
+    transform: rotate(0.2deg) translateY(-0.35px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+.app-main__bear-wrap--settle img {
+  animation: app-main__bear-settle 0.56s cubic-bezier(0.22, 1, 0.45, 1) forwards;
+  transform-origin: center bottom;
+}
+
+@keyframes app-main__pun-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(38px) scale(0.986);
+  }
+  35% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.app-main__pun--reveal-in {
+  animation: app-main__pun-reveal 0.72s cubic-bezier(0.16, 1, 0.32, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-main__bear-hit img {
+    animation: none;
+  }
+
+  .app-main__bear-wrap--settle img {
+    animation: none;
+  }
+
+  .app-main__pun--reveal-in {
+    animation: none;
+  }
+}
+
+.app-main__pun {
+  width: 100%;
+  max-width: min(36rem, calc(100vw - 1.25rem));
+  align-self: center;
+  margin: 1.25rem auto 0;
+  padding: 0.85rem 1.15rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  border: 1px solid rgba(3, 1, 8, 0.08);
+  border-left: 3px solid rgba(238, 111, 87, 0.85);
+  box-shadow: 0 2px 12px rgba(3, 1, 8, 0.06);
+  color: rgb(35, 32, 42);
+  box-sizing: border-box;
+
+  @media (min-width: 900px) {
+    max-width: min(40rem, calc(100vw - 2rem));
+  }
+}
+
+.app-main__pun-label {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(238, 111, 87, 0.95);
+}
+
+.app-main__pun .bear-pun {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+}
