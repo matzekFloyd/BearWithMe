@@ -23,7 +23,7 @@ Thanks for your interest in contributing to BearWithMe.
 ## Code Style
 
 - Follow existing project style
-- Run tests before opening a PR: `npm test`
+- Run tests before opening a PR: `npm test` (or `npm run test:watch` while developing)
 - Ensure the project builds: `npm run build`
 
 ## Reporting Bugs and Proposing Features

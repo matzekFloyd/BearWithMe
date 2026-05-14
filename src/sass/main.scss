@@ -1,16 +1,10 @@
-@import-normalize;
-
-@import "abstracts/variables";
-@import "abstracts/functions";
-@import "abstracts/mixins";
-
-@import "base/reset";
-@import "base/typography";
-
-@import "components/loading_spinner";
-
-@import "layout/header";
-@import "layout/main";
-@import "layout/footer";
-
-@import "pages/app";
+@use "abstracts/variables" as *;
+@use "abstracts/functions" as *;
+@use "abstracts/mixins" as *;
+@use "base/reset";
+@use "base/typography";
+@use "components/loading_spinner";
+@use "layout/header";
+@use "layout/main";
+@use "layout/footer";
+@use "pages/app";
