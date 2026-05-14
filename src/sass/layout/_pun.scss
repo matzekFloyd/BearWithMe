@@ -1,14 +1,60 @@
 // Daily pun card under the bear image (UTC calendar day matches the daily bear; see README).
 // Hidden until the bear is clicked; then it animates up from under the image.
+// On narrow viewports the bear + pun share a capped width. On wide screens the bear row
+// grows for a larger hero image; the pun stays in a modest max-width for readability.
+// The img uses width: auto so it is never stretched beyond its intrinsic resolution.
 
-.app-main__bear-wrap,
-.app-main__bear-hit {
-  width: fit-content;
+.app-main__bear-stack {
+  width: 100%;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
+.app-main__bear-stack img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(78vh, 1000px);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  @media (min-width: 900px) and (min-height: 700px) {
+    max-height: min(82vh, 1200px);
+  }
+}
+
+.app-main__bear-wrap,
+.app-main__bear-hit {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  max-width: min(36rem, calc(100vw - 1.25rem));
+
+  @media (min-width: 640px) {
+    max-width: min(44rem, calc(100vw - 1.75rem));
+  }
+
+  @media (min-width: 900px) {
+    max-width: min(54rem, calc(100vw - 2.5rem));
+  }
+
+  @media (min-width: 1280px) {
+    max-width: min(60rem, calc(100vw - 3rem));
+  }
+}
 .app-main__bear-hit {
   cursor: pointer;
   border-radius: 6px;
@@ -98,7 +144,9 @@
 }
 
 .app-main__pun {
-  max-width: min(36rem, 92vw);
+  width: 100%;
+  max-width: min(36rem, calc(100vw - 1.25rem));
+  align-self: center;
   margin: 1.25rem auto 0;
   padding: 0.85rem 1.15rem;
   text-align: center;
@@ -108,6 +156,11 @@
   border-left: 3px solid rgba(238, 111, 87, 0.85);
   box-shadow: 0 2px 12px rgba(3, 1, 8, 0.06);
   color: rgb(35, 32, 42);
+  box-sizing: border-box;
+
+  @media (min-width: 900px) {
+    max-width: min(40rem, calc(100vw - 2rem));
+  }
 }
 
 .app-main__pun-label {
@@ -125,4 +178,5 @@
   line-height: 1.5;
   font-style: italic;
   letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
 }

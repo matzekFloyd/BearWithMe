@@ -40,35 +40,40 @@ export function Main({ bear }) {
       {bear && (
         <>
           {bearImgLoading ? <LoadingSpinner /> : <h1>{bear.name}</h1>}
-          <div
-            className={
-              awaitingPunTap
-                ? "app-main__bear-hit"
-                : pun && punRevealed
-                  ? "app-main__bear-wrap app-main__bear-wrap--settle"
-                  : "app-main__bear-wrap"
-            }
-            onClick={awaitingPunTap ? revealPun : undefined}
-            onKeyDown={awaitingPunTap ? onBearHitKeyDown : undefined}
-            role={awaitingPunTap ? "button" : undefined}
-            tabIndex={awaitingPunTap ? 0 : undefined}
-            aria-label={
-              awaitingPunTap ? "Reveal the pun of the day" : undefined
-            }
-          >
-            <BearImage bearObj={bear} setBearImgLoading={setBearImgLoading} />
-          </div>
-          {pun && punRevealed ? (
-            <section
-              className={"app-main__pun app-main__pun--reveal-in"}
-              aria-labelledby={"pun-of-the-day-heading"}
+          <div className={"app-main__bear-stack"}>
+            <div
+              className={
+                awaitingPunTap
+                  ? "app-main__bear-hit"
+                  : pun && punRevealed
+                    ? "app-main__bear-wrap app-main__bear-wrap--settle"
+                    : "app-main__bear-wrap"
+              }
+              onClick={awaitingPunTap ? revealPun : undefined}
+              onKeyDown={awaitingPunTap ? onBearHitKeyDown : undefined}
+              role={awaitingPunTap ? "button" : undefined}
+              tabIndex={awaitingPunTap ? 0 : undefined}
+              aria-label={
+                awaitingPunTap ? "Reveal the pun of the day" : undefined
+              }
             >
-              <p className={"app-main__pun-label"} id={"pun-of-the-day-heading"}>
-                Pun of the day
-              </p>
-              <BearPun pun={pun} />
-            </section>
-          ) : null}
+              <BearImage bearObj={bear} setBearImgLoading={setBearImgLoading} />
+            </div>
+            {pun && punRevealed ? (
+              <section
+                className={"app-main__pun app-main__pun--reveal-in"}
+                aria-labelledby={"pun-of-the-day-heading"}
+              >
+                <p
+                  className={"app-main__pun-label"}
+                  id={"pun-of-the-day-heading"}
+                >
+                  Pun of the day
+                </p>
+                <BearPun pun={pun} />
+              </section>
+            ) : null}
+          </div>
         </>
       )}
     </main>
